@@ -1,0 +1,16 @@
+Route :
+  Array of Rides
+
+Part 1.
+  Parse
+Part 2.
+  Sort 
+    Distance
+    Start time
+Part 3 - Meat
+  While (Rides left):
+    Give any free cars nearest ride (time + distance)
+    Remove ride from ride list
+    Step time
+    Remove any ride past last date
+Part 4
