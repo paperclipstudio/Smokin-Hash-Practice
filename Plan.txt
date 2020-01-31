@@ -35,7 +35,12 @@ What about a a zigzag patten?
 .
 . Write a points calulator that takes in Rides and
 . says how many points they create.
+
 . Write a Rides packer that takes in rides and gives them
 . to cars
+
 . Write a output parser, that takes in rides and output
 . a .txt file to give back to the overlords (GHJ).
+
+Write some tests (maybe have a look at jUnit?) to test the 
+stuff we write.
