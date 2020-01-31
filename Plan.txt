@@ -26,3 +26,16 @@ What about finding cycles of rides.
 What about reducing the number of rides by connecting
   rides which one ends just as another begins?
 What about a a zigzag patten?
+
+
+
+. Todo
+. write a rides class that can hold many rides that
+. can pretend to be many rides in one.
+.
+. Write a points calulator that takes in Rides and
+. says how many points they create.
+. Write a Rides packer that takes in rides and gives them
+. to cars
+. Write a output parser, that takes in rides and output
+. a .txt file to give back to the overlords (GHJ).

@@ -50,7 +50,9 @@ public class Ride{
     public int getRideID() {
       return rideID;
     }
-
+    /**
+    * Sets the bonus points for all rides
+    */
     public setRideBonusPoints(int bonus) {
       bonusPerRide = bonus;
     }
