@@ -4,7 +4,7 @@ Route :
 Part 1.
   Parse
 Part 2.
-  Sort 
+  Sort
     Distance
     Start time
 Part 3 - Meat
@@ -14,3 +14,15 @@ Part 3 - Meat
     Step time
     Remove any ride past last date
 Part 4
+
+
+
+
+.Ideas
+What about finding cycles of rides.
+  for example what about finding a set of rides which
+  start and end at the same (or similar) places which
+  can be done without rest.
+What about reducing the number of rides by connecting
+  rides which one ends just as another begins?
+What about a a zigzag patten?
