@@ -4,7 +4,7 @@
  *  Ride Class holds information for one ride.
  */
 
-public class Ride{
+public class Ride {
     private Intersection startPos;
     private Intersection finishPos;
     private int earliest;
@@ -12,7 +12,8 @@ public class Ride{
 //    private final int rideID;
 //    private static int bonusPerRide;
 
-    public Ride(int startHorizontal, int startVertical, int finishHorizontal, int finishVertical, int earliest, int latest) { //removed ', int rideID' as it is not used yet
+    public Ride(int startHorizontal, int startVertical, int finishHorizontal, int finishVertical,
+                int earliest, int latest) { //removed ', int rideID' as it is not used yet
         this.startPos = new Intersection(startHorizontal, startVertical);
         this.finishPos = new Intersection(finishHorizontal, finishVertical);
         this.earliest = earliest;

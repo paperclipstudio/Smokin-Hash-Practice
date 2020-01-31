@@ -20,8 +20,7 @@ public class Parse {
         while (scanner.hasNextLine()) {
             String data = scanner.nextLine();
             data = data.replaceAll("\\s+","");
-            tempArray = data.split("");
-            Ride tempRide = new Ride(Integer.parseInt(tempArray[0]), Integer.parseInt(tempArray[1]), Integer.parseInt(tempArray[2]),Integer.parseInt(tempArray[3]), Integer.parseInt(tempArray[4]), Integer.parseInt(tempArray[5]));
+            Ride tempRide = new Ride(data.charAt(0), data.charAt(1), data.charAt(2),data.charAt(3), data.charAt(4), data.charAt(5));
             rides.add(tempRide);
 
             //simple test:
