@@ -5,10 +5,8 @@
  */
 
 public class Ride {
-	private int[] startPos = {0, 0};
-	private int[] finishPos = {0, 0};
-    //private Intersection startPos;
-    //private Intersection finishPos;
+    private Intersection startPos;
+    private Intersection finishPos;
     private int earliest;
     private int latest;
     private final int rideID;
@@ -22,25 +20,12 @@ public class Ride {
 			int earliest, 
 			int latest, 
 			int rideID) {
-        this.startPos[0] = startHorizontal;
-		this.startPos[1] = startVertical;	
-        this.finishPos[0] = finishHorizontal;
-        this.finishPos[1] = finishVertical;
-        this.earliest = earliest;
-        this.latest = latest;
-        this.rideID = rideID;
-    }
-
-	/*
-    public Ride(int startHorizontal, int startVertical, int finishHorizontal, int finishVertical,
-                int earliest, int latest, int rideID) {
         this.startPos = new Intersection(startHorizontal, startVertical);
         this.finishPos = new Intersection(finishHorizontal, finishVertical);
         this.earliest = earliest;
         this.latest = latest;
         this.rideID = rideID;
     }
-	*/
 
      public int getEarliest() {
          return earliest;
@@ -50,11 +35,11 @@ public class Ride {
          return latest;
      }
 
-     public int[] getStartPos() {
+     public Intersection getStartPos() {
          return startPos;
      }
 
-     public int[] getFinishPos() {
+     public Intersection getFinishPos() {
          return finishPos;
      }
 
@@ -80,7 +65,7 @@ public class Ride {
     * No side effects
     */
     public double distance() {
-      return Math.sqrt(Math.pow(startPos[0] - startPos[1], 2));
+        return Math.sqrt(Math.pow(startPos.h() - startPos.v(), 2));
     }
     /**
     * Returns the RideID of this ride

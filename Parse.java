@@ -31,7 +31,7 @@ public class Parse {
             rides.add(tempRide);
 
             //simple test:
-            //System.out.println("The car comes from horizontal street " + tempRide.getStartPos().getHorizontalStreet() + ", vertical street " + tempRide.getStartPos().getVerticalStreet() );
+            System.out.println("The car comes from horizontal street " + tempRide.getStartPos().h() + ", vertical street " + tempRide.getStartPos().v() );
         }
         scanner.close();
 		return rides;
