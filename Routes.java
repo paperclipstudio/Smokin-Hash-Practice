@@ -1,67 +1,62 @@
-/**
-*  @author George Sanger 947777
-*  Created for Google Hash practice 2020
-*  Ride Class holds information for one ride.
-*/
+import java.util.ArrayList;
 
-public class Rides {
-  private Intersection startPos
+public class Routes {
+  private Intersection startPos;
   private Intersection finishPos;
   private ArrayList<Ride> rides;
+  private int distance;
 
   public int getEarliest() {
-        return rides.get(0).earliest;
+        return rides.get(0).getEarliest();
     }
 
     public int getLatest() {
-        return rides.get(rides.size()).latest;
+        return rides.get(rides.size()).getLatest();
     }
 
     public Intersection getStartPos() {
-        return rides.get(0).startPos;
+        return rides.get(0).getStartPos();
     }
 
     public Intersection getFinishPos() {
-        return rides.get(0).finishPos;
+        return rides.get(0).getFinishPos();
     }
 
 
    /**
-   * Returns the number of points that a Journy would get.
-   * @param startTime Time since begining that the ride would begin.
-   * @return The amount of points a ride would get if it would start
+   * Returns the number of points that a Route would get.
+   * @param startTime Time that the Route would start.
+   * @return The amount of points a Route would get if it would start
    * at the given start time.
    */
    public int getPoints(int startTime){
        int points = 0;
        int currentTime = startTime;
-       Intersection currentPos = rides.get(0).startPos;
+       Intersection currentPos = rides.get(0).getStartPos();
 
        for (Ride currentRide: rides) {
-         currentTime += Ride.getDistance(currentPos, currentRide.getStartPos());
+         currentTime += Intersection.getDistance(currentPos, currentRide.getStartPos());
          points += currentRide.getPoints(currentTime);
-         currentTime += currentRide.distance();
-         currentPos = currentRide.getFinishPos;
+         currentTime += currentRide.getDistance();
+         currentPos = currentRide.getFinishPos();
        }
-
-
+       return points;
    }
+
    /**
-   * Returns the Distance of a journey.
-   * No side effects
+   * @returns the Distance of a route
    */
-   public double distance() {
-     return Math.sqrt(Math.pow(startPos[0] - startPos[1], 2));
+   public int distance() {
+     return distance;
    }
    /**
    * Returns the RideID of this ride
    */
    public int[] getRideIDs() {
      int[] rideIDlist = new int[rides.size()];
-     for(int i = 0; i < rides.length();i++) {
-       rideIDlist[i] = rides[i].getRideID()
+     for(int i = 0; i < rides.size();i++) {
+       rideIDlist[i] = rides.get(i).getRideID();
      }
-
      return rideIDlist;
    }
 }

@@ -24,7 +24,7 @@ public class Intersection {
     }
 
     public static int getDistance(Intersection a, Intersection b) {
-      return (b.getHorizontalStreet() - a.getHorizontalStreet()) +
-      (b.getVerticalStreet() - a.getHorizontalStreet());
+      return (b.h() - a.h()) +
+      (b.v() - a.v());
     }
 }

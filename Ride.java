@@ -13,12 +13,12 @@ public class Ride {
     private static int bonusPerRide;
 
     public Ride(
-			int startHorizontal, 
-			int startVertical, 
-			int finishHorizontal, 
+			int startHorizontal,
+			int startVertical,
+			int finishHorizontal,
 			int finishVertical,
-			int earliest, 
-			int latest, 
+			int earliest,
+			int latest,
 			int rideID) {
         this.startPos = new Intersection(startHorizontal, startVertical);
         this.finishPos = new Intersection(finishHorizontal, finishVertical);
@@ -55,8 +55,8 @@ public class Ride {
         if (startTime == earliest) {
             points += bonusPerRide;
         }
-        if (startTime + distance() <= latest) {
-            points += distance();
+        if (startTime + getDistance() <= latest) {
+            points += getDistance();
         }
         return points;
     }
@@ -64,8 +64,8 @@ public class Ride {
     * Returns the Distance of a journey.
     * No side effects
     */
-    public double distance() {
-      return Math.sqrt(Math.pow(startPos.h() - startPos.v(), 2));
+    public int getDistance() {
+      return (int) Math.sqrt(Math.pow(startPos.h() - startPos.v(), 2));
     }
     /**
     * Returns the RideID of this ride
@@ -76,7 +76,7 @@ public class Ride {
     /**
     * Sets the bonus points for all rides
     */
-    public void setRideBonusPoints(int bonus) {
+    public static void setRideBonusPoints(int bonus) {
       bonusPerRide = bonus;
     }
 }
