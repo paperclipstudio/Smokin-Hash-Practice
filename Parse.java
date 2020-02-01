@@ -23,15 +23,11 @@ public class Parse {
 		int rideID = 0; // RideID is a unique id that remebers which route came when.
         while (scanner.hasNextLine()) {
             String data = scanner.nextLine();
-            data = data.replaceAll("\\s+","");
-            Ride tempRide = new Ride(
-					getIntAt(data,0), 
-					getIntAt(data,1),
-					getIntAt(data,2), 
-					getIntAt(data,3), 
-					getIntAt(data,4),
-					getIntAt(data,5),
-					rideID);
+			String tempArray[] = data.split(" ");
+			Ride tempRide = new Ride(Integer.parseInt(tempArray[0]),
+					Integer.parseInt(tempArray[1]), Integer.parseInt(tempArray[2]),
+					Integer.parseInt(tempArray[3]), Integer.parseInt(tempArray[4]),
+					Integer.parseInt(tempArray[5]), rideID);
             rides.add(tempRide);
 
             //simple test:
