@@ -5,7 +5,7 @@ public class Main {
 		System.out.println("hello world");
 		ArrayList<Ride> currentRides = new ArrayList<Ride>();
 		try {
-			currentRides = Parse.parseRidesFromFile("a_example.in");
+			currentRides = Parse.parseRidesFromFile("e_high_bonus.in");
 		}
 		catch(Exception e) {
 			System.out.println("File Reading failed");
