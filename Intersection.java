@@ -22,4 +22,9 @@ public class Intersection {
     public void setVerticalStreet(int verticalStreet) {
         this.verticalStreet = verticalStreet;
     }
+
+    public static int getDistance(Intersection a, Intersection b) {
+      return (b.getHorizontalStreet() - a.getHorizontalStreet()) +
+      (b.getVerticalStreet() - a.getHorizontalStreet());
+    }
 }
