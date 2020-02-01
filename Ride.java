@@ -65,7 +65,7 @@ public class Ride {
     * No side effects
     */
     public double distance() {
-        return Math.sqrt(Math.pow(startPos.h() - startPos.v(), 2));
+      return Math.sqrt(Math.pow(startPos.h() - startPos.v(), 2));
     }
     /**
     * Returns the RideID of this ride
