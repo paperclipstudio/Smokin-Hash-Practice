@@ -7,7 +7,7 @@ public class Intersection {
         this.setVerticalStreet(verticalStreet);
     }
 
-    public int getHorizontalStreet() {
+    public int h() {
         return horizontalStreet;
     }
 
@@ -15,7 +15,7 @@ public class Intersection {
         this.horizontalStreet = horizontalStreet;
     }
 
-    public int getVerticalStreet() {
+    public int v() {
         return verticalStreet;
     }
 
