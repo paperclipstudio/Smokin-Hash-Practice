@@ -6,6 +6,10 @@ import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
 
  * Reads a .in file and creates a Arraylist of Rides. It then returns this
@@ -44,6 +48,7 @@ public class Parse {
 				Integer.parseInt(tempArray[3]), Integer.parseInt(tempArray[4]),
 				Integer.parseInt(tempArray[5]), rideID);
         rides.add(tempRide);
+        rideID++;
 
             //simple test:
             //System.out.println("The car comes from horizontal street " + tempRide.getStartPos().h() + ", vertical street " + tempRide.getStartPos().v() );
@@ -56,5 +61,32 @@ public class Parse {
 	private static int getIntAt(String lineToParse, int index) {
 		return Character.getNumericValue(lineToParse.charAt(index));
 	}
+
+
+  public static String parseRoutesToString(Routes inputRoute) {
+    String outputString = "";
+    outputString += inputRoute.getNumberOfRides();
+    for (int currentRideID: inputRoute.getRideIDs()) {
+      outputString += " " + currentRideID;
+    }
+    return outputString;
+  }
+
+  public static String  parseManyRoutesToString(Routes[] inputRoutes) {
+    String currentString = "";
+    for (Routes currentRoute: inputRoutes) {
+      currentString += parseRoutesToString(currentRoute);
+      currentString += "\n";
+    }
+    return currentString;
+  }
+
+  public static void parseRoutesToFile (
+  Routes[] inputRoutes,
+  String outputFile) throws IOException {
+    BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+    writer.write(parseManyRoutesToString(inputRoutes));
+    writer.close();
+  }
 
 }

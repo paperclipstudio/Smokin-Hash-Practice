@@ -1,10 +1,19 @@
 import java.util.ArrayList;
+import java.io.BufferedWriter;
 
 public class Routes {
   private Intersection startPos;
   private Intersection finishPos;
   private ArrayList<Ride> rides;
   private int distance;
+
+  Routes() {
+    rides = new ArrayList<Ride>();
+  }
+
+  public void addRide(Ride input) {
+    rides.add(input);
+  }
 
   public int getEarliest() {
         return rides.get(0).getEarliest();
@@ -59,4 +68,12 @@ public class Routes {
      }
      return rideIDlist;
    }
+
+   /**
+   * @return The number of rides a route holds
+   */
+   public int getNumberOfRides() {
+     return rides.size();
+   }
+
 }
