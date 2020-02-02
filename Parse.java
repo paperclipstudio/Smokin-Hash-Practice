@@ -36,8 +36,9 @@ public class Parse {
       // Which is in the format
       // rows, column, number of cars, number of rides, bonus, max time
 	    String Firstline = scanner.nextLine();
-      String[] SetupData = Firstline.split(" ");
-      Ride.setRideBonusPoints(Integer.parseInt(SetupData[3]));
+      String[] setupData = Firstline.split(" ");
+      Ride.setRideBonusPoints(Integer.parseInt(setupData[4]));
+      Ride.setNumberOfCars(Integer.parseInt(setupData[2]));
 
       int rideID = 0; // RideID is a unique id that remebers which route came when.
       while (scanner.hasNextLine()) {

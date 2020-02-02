@@ -11,6 +11,7 @@ public class Ride {
     private int latest;
     private final int rideID;
     private static int bonusPerRide;
+    private static int numberOfCars;
 
     public Ride(
 			int startHorizontal,
@@ -45,13 +46,16 @@ public class Ride {
 
 
     /**
-    * Returns the number of points that a Journy would get.
+    * Returns the number of points that a Ride would get.
     * @param startTime Time since begining that the ride would begin.
     * @return The amount of points a ride would get if it would start
     * at the given start time.
     */
     public int getPoints(int startTime){
         int points = 0;
+        if (startTime < earliest) {
+          return 0;
+        }
         if (startTime == earliest) {
             points += bonusPerRide;
         }
@@ -65,7 +69,7 @@ public class Ride {
     * No side effects
     */
     public int getDistance() {
-      return (int) Math.sqrt(Math.pow(startPos.h() - startPos.v(), 2));
+      return Intersection.getDistance(startPos, finishPos);
     }
     /**
     * Returns the RideID of this ride
@@ -78,5 +82,13 @@ public class Ride {
     */
     public static void setRideBonusPoints(int bonus) {
       bonusPerRide = bonus;
+    }
+
+    public static void setNumberOfCars(int cars) {
+      numberOfCars = cars;
+    }
+
+    public static int getNumberOfCars() {
+      return numberOfCars;
     }
 }

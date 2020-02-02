@@ -24,7 +24,18 @@ public class Intersection {
     }
 
     public static int getDistance(Intersection a, Intersection b) {
-      return (b.h() - a.h()) +
-      (b.v() - a.v());
+      int distance = 0;
+      if (a.h() > b.h()) {
+        distance += a.h() - b.h();
+      } else {
+        distance += b.h() - a.h();
+      }
+
+      if (a.v() > b.v()) {
+        distance += a.v() - b.v();
+      } else {
+        distance += b.v() - a.v();
+      }
+      return distance;
     }
 }

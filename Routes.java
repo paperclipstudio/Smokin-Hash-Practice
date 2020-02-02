@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 import java.io.BufferedWriter;
+import java.util.Comparator;
 
 public class Routes {
   private Intersection startPos;
   private Intersection finishPos;
   private ArrayList<Ride> rides;
   private int distance;
+
 
   Routes() {
     rides = new ArrayList<Ride>();
@@ -20,7 +22,11 @@ public class Routes {
     }
 
     public int getLatest() {
-        return rides.get(rides.size()).getLatest();
+        return rides.get(rides.size() - 1).getLatest();
+    }
+
+    public ArrayList<Ride> getRides() {
+      return rides;
     }
 
     public Intersection getStartPos() {
@@ -55,11 +61,11 @@ public class Routes {
    /**
    * @returns the Distance of a route
    */
-   public int distance() {
+   public int getDistance() {
      return distance;
    }
    /**
-   * Returns the RideID of this ride
+   * Returns the RideIDs of this routes
    */
    public int[] getRideIDs() {
      int[] rideIDlist = new int[rides.size()];
@@ -76,4 +82,45 @@ public class Routes {
      return rides.size();
    }
 
+   public boolean joinRoutes(Routes input) {
+     if (this.getEarliest() + this.getDistance() < input.getLatest()){
+       for (Ride currentRide: input.getRides()) {
+         this.addRide(currentRide);
+       }
+       return true;
+     }
+     System.out.println("joinRoutes() Failed Second Routes is too early");
+     return false;
+   }
+
+   /**
+   *
+   * @return The Distance from the end of route a to the beginning of route break;
+   *   which includes the time to get between the two.
+   */
+   public static int spaceTimeDiff(Routes a, Routes b) {
+     int diff = Intersection.getDistance(a.getFinishPos(), b.getStartPos());
+     diff += b.getEarliest() - a.getLatest();
+     // Check to see if a ends after the b starts
+     if (a.getLatest() > b.getEarliest()) {
+       diff += 900000;
+     }
+     //System.out.println("Difference: " + diff);
+
+     return diff;
+   }
+}
+
+
+
+class SortByStart implements Comparator<Routes>{
+  public int compare(Routes a, Routes b){
+    if(a.getEarliest() == b.getEarliest()) {
+      return 0;
+    } else if(a.getEarliest() > b.getEarliest()){
+      return 1;
+    } else {
+      return -1;
+    }
+  }
 }
