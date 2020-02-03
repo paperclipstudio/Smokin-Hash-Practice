@@ -30,6 +30,15 @@ public class Routes {
         return rides.get(0).getEarliest();
     }
 
+    /**
+    * Gives the Ealiest that a route could finish
+    * such that the earliest that a route could finishHorizontal
+    * @return Earliest + totalDistance
+    */
+    public int getBestCaseLatest() {
+      return getEarliest() + getDistance();
+    }
+
     public int getLatest() {
         return rides.get(rides.size() - 1).getLatest();
     }
@@ -124,7 +133,12 @@ public class Routes {
    }
 }
 
-
+class SortByDistance implements Comparator<Routes>{
+  public int compare(Routes a, Routes b){
+    //return a.getDistance() - b.getDistance();
+    return b.getDistance() - a.getDistance();
+  }
+}
 
 class SortByStart implements Comparator<Routes>{
   public int compare(Routes a, Routes b){

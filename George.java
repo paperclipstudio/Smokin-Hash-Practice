@@ -18,10 +18,10 @@ class George{
     ArrayList<Ride> rides = new ArrayList<Ride>();
     try {
       //rides = Parse.parseRidesFromFile("a_example.in");
-      //rides = Parse.parseRidesFromFile("b_should_be_easy.in");
+      rides = Parse.parseRidesFromFile("b_should_be_easy.in");
       //rides = Parse.parseRidesFromFile("c_no_hurry.in");
       //rides = Parse.parseRidesFromFile("d_metropolis.in");
-      rides = Parse.parseRidesFromFile("e_high_bonus.in");
+      //rides = Parse.parseRidesFromFile("e_high_bonus.in");
 
     } catch (Exception e) {
       System.out.println("File not found");
@@ -42,6 +42,7 @@ class George{
 
     // Sort Routes by starting time.
     //Collections.sort(solution, new SortByStart());
+    Collections.sort(solution, new SortByDistance());
 /*
     for (int i=0; i<solution.size(); i++) {
       System.out.printf("task: %3d Time: %4d From: [%3d,%3d] To: [%3d,%3d]\n",
