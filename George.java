@@ -1,22 +1,25 @@
 
-// This file is George
-// for him to work on a solution.
+
+/**
+* Class is for the testing of Georges Solutions
+* Uncomment different lines for different files
+* @author Smokin'Hash
+*/
 
 import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Collections;
 
-
 class George{
-
   public static void main(String[] args) {
-    System.out.println("boop");
+    ////
     //// Parsing File
+    ////
     ArrayList<Ride> rides = new ArrayList<Ride>();
     try {
       //rides = Parse.parseRidesFromFile("a_example.in");
-      //rides = Parse.parseRidesFromFile("b_should_be_easy.in");
-      rides = Parse.parseRidesFromFile("c_no_hurry.in");
+      rides = Parse.parseRidesFromFile("b_should_be_easy.in");
+      //rides = Parse.parseRidesFromFile("c_no_hurry.in");
       //rides = Parse.parseRidesFromFile("d_metropolis.in");
       //rides = Parse.parseRidesFromFile("e_high_bonus.in");
 
@@ -24,11 +27,12 @@ class George{
       System.out.println("File not found");
     }
 
-    Routes currentRoute = new Routes();
-
+    ////
     //// Packing Routes
+    ////
 
     // Put each Ride into Unique Routes
+    // solution holds all routes.
     ArrayList<Routes> solution = new ArrayList<Routes>();
     for (Ride currentRide: rides) {
       Routes tempRoute = new Routes();
@@ -38,7 +42,6 @@ class George{
 
     // Sort Routes by starting time.
     Collections.sort(solution, new SortByStart());
-    System.out.print("Solutions are sorted");
 /*
     for (int i=0; i<solution.size(); i++) {
       System.out.printf("task: %3d Time: %4d From: [%3d,%3d] To: [%3d,%3d]\n",
@@ -51,40 +54,46 @@ class George{
     }*/
 
     // Join route together
+    // Finds out the differents between the ending of one route and the starting
+    // of another, if this difference is less than the acceptableDiff then they
+    // get joinned together
+    final int LARGE_NUMBER = 999999999;
     // Stores the smallestDifference between routes.
-    int smallestDiff = 999999999;
-    int secondSmallestDiff = 999999999;
+    int smallestDiff = LARGE_NUMBER;
+    int secondSmallestDiff = LARGE_NUMBER;
     // The difference that we would allow a joining.
     int acceptableDiff = 0;
 
     while(solution.size() > Ride.getNumberOfCars() ) {
-      System.out.println("A Current Size: " + solution.size() +
+      /*System.out.println("A Current Size: " + solution.size() +
       " Number of Cars: " + Ride.getNumberOfCars() +
       " acceptableDiff: " + acceptableDiff +
       " smallestDiff: " + smallestDiff);
-      smallestDiff = 999999999;
-      secondSmallestDiff = 999999999;
+      */
+      smallestDiff = LARGE_NUMBER;
+      secondSmallestDiff = LARGE_NUMBER;
+      // for each (i) and all later routes (j)
       for(int i = 0;i < solution.size(); i++){
-        //System.out.println(i);
         for(int j = i+1; j < solution.size(); j++) {
+          // Find the difference between route i and route j
           int currentDiff = Routes.spaceTimeDiff(solution.get(i), solution.get(j));
           if (currentDiff < smallestDiff) {
             smallestDiff = currentDiff;
-          }
-          if (currentDiff > smallestDiff && currentDiff < secondSmallestDiff){
+          } else if(currentDiff > smallestDiff && currentDiff < secondSmallestDiff){
             secondSmallestDiff = currentDiff;
           }
-
-          if (acceptableDiff >= currentDiff && solution.size() > Ride.getNumberOfCars() ) {
-            //System.out.print("joining\n");
-            if (solution.get(i).joinRoutes(solution.get(j))); {
+          // If difference is accptable and we still have too many rides.
+          if (acceptableDiff >= currentDiff &&
+          solution.size() > Ride.getNumberOfCars() ) {
+            // if routes are correctly joined then remove second route.
+            if (solution.get(i).joinRoutes(solution.get(j))) {
               solution.remove(j);
             }
           }
         }
       }
-      //Collections.sort(solution, new SortByStart());
-      acceptableDiff = smallestDiff ;
+      Collections.sort(solution, new SortByStart());
+      acceptableDiff += 1;
     }
     // loop untill X number remains
 
