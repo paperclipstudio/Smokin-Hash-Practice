@@ -18,10 +18,10 @@ class George{
     ArrayList<Ride> rides = new ArrayList<Ride>();
     try {
       //rides = Parse.parseRidesFromFile("a_example.in");
-      rides = Parse.parseRidesFromFile("b_should_be_easy.in");
+      //rides = Parse.parseRidesFromFile("b_should_be_easy.in");
       //rides = Parse.parseRidesFromFile("c_no_hurry.in");
       //rides = Parse.parseRidesFromFile("d_metropolis.in");
-      //rides = Parse.parseRidesFromFile("e_high_bonus.in");
+      rides = Parse.parseRidesFromFile("e_high_bonus.in");
 
     } catch (Exception e) {
       System.out.println("File not found");
@@ -75,7 +75,7 @@ class George{
       secondSmallestDiff = LARGE_NUMBER;
       // for each (i) and all later routes (j)
       for(int i = 0;i < solution.size(); i++){
-        for(int j = i+1; j < solution.size(); j++) {
+        for(int j = 0; j < solution.size(); j++) {
           // Find the difference between route i and route j
           int currentDiff = Routes.spaceTimeDiff(solution.get(i), solution.get(j));
           if (currentDiff < smallestDiff) {
@@ -83,12 +83,13 @@ class George{
           } else if(currentDiff > smallestDiff && currentDiff < secondSmallestDiff){
             secondSmallestDiff = currentDiff;
           }
-          // If difference is accptable and we still have too many rides.
-          if (currentDiff <= acceptableDiff &&
+          // If difference is accptable and we still have too many routes.
+          if (currentDiff <= acceptableDiff*2 &&
           solution.size() > Ride.getNumberOfCars() ) {
             // if routes are correctly joined then remove second route.
             if (solution.get(i).joinRoutes(solution.get(j))) {
               solution.remove(j);
+              break;
             }
           }
         }
