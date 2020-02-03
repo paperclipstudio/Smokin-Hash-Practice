@@ -1,7 +1,7 @@
 
 
 /**
-* Class is for the testing of Georges Solutions
+* Class is for the testing of PointsPer Ride Solutions
 * Uncomment different lines for different files
 * @author Smokin'Hash
 */
@@ -10,7 +10,21 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Collections;
 
-class George{
+class pointPerCar{
+
+  public static double pointsPerCar(ArrayList<Routes> input) {
+    int points = getArrayListPoints(input);
+    return points / (double) input.size();
+  }
+
+  public static int getArrayListPoints(ArrayList<Routes> inputArrayList) {
+    int points = 0;
+    for (Routes input: inputArrayList) {
+      points += input.getPoints(0);
+    }
+    return points;
+  }
+
   public static void main(String[] args) {
     ////
     //// Parsing File
@@ -63,20 +77,39 @@ class George{
     int smallestDiff = LARGE_NUMBER;
     int secondSmallestDiff = LARGE_NUMBER;
     // The difference that we would allow a joining.
-    int acceptableDiff = 0;
+    int acceptableDiff = -100;
 
     while(solution.size() > Ride.getNumberOfCars() ) {
-      System.out.println("A Current Size: " + solution.size() +
-      " Number of Cars: " + Ride.getNumberOfCars() +
-      " acceptableDiff: " + acceptableDiff +
-      " smallestDiff: " + smallestDiff);
+      System.out.printf("A Current Size: %4d  Number of Cars:  %4d " +
+      "accept Diff: %4d  pointsPerCar: %4.4f\n",
+      solution.size(),
+      Ride.getNumberOfCars(),
+      acceptableDiff,
+      pointsPerCar(solution));
 
-      smallestDiff = LARGE_NUMBER;
+      smallestDiff = LARGE_NUMBER - 2;
       secondSmallestDiff = LARGE_NUMBER;
       // for each (i) and all later routes (j)
       for(int i = 0;i < solution.size(); i++){
         for(int j = 0; j < solution.size(); j++) {
-          
+          if (i != j) {
+            // Find the difference between route i and route j
+            int currentDiff = Routes.spaceTimeDiff(solution.get(i), solution.get(j));
+            if (currentDiff < smallestDiff) {
+              smallestDiff = currentDiff;
+            } else if(currentDiff > smallestDiff && currentDiff < secondSmallestDiff){
+              secondSmallestDiff = currentDiff;
+            }
+            // If difference is accptable and we still have too many routes.
+            if (currentDiff <= acceptableDiff &&
+            solution.size() > Ride.getNumberOfCars() ) {
+              // if routes are correctly joined then remove second route.
+              if (solution.get(i).joinRoutes(solution.get(j))) {
+                solution.remove(j);
+                break;
+              }
+            }
+          }
         }
       }
       //Collections.sort(solution, new SortByStart());
@@ -87,11 +120,7 @@ class George{
     //// Output Parsing
 
     Routes[] finalSolution = solution.toArray(new Routes[solution.size()]);
-    int points = 0;
-    for (Routes input: finalSolution) {
-      points += input.getPoints(0);
-    }
-    System.out.println("points: " + points);
+    System.out.printf("points: %,3d\n", getArrayListPoints(solution));
     try{
       Parse.parseRoutesToFile(finalSolution, "GeorgeOut.out");
     } catch(IOException e) {

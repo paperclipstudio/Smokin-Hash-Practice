@@ -37,7 +37,7 @@ public class Routes {
     */
     public int getBestCaseLatest() {
       return getEarliest()
-        + getDistance() 
+        + getDistance()
         + Intersection.getDistance(new Intersection(0,0), getStartPos());
     }
 
@@ -123,15 +123,18 @@ public class Routes {
    *   which includes the time to get between the two.
    */
    public static int spaceTimeDiff(Routes a, Routes b) {
-     int diff = Intersection.getDistance(a.getFinishPos(), b.getStartPos());
-     diff += b.getEarliest() - a.getBestCaseLatest();
-     // Check to see if a ends after the b starts
-     if (a.getBestCaseLatest() > b.getEarliest()) {
-       diff += 900000;
+     int badness = 0;
+     int spaceDiff = Intersection.getDistance(a.getFinishPos(), b.getStartPos());
+     badness += spaceDiff;
+     int timeDiff = (b.getEarliest() - a.getBestCaseLatest());
+     if(timeDiff >= 0) {
+       badness += timeDiff;
+     } else {
+     // Check to see if a ends after the b starts     
+       badness += 9000000;
      }
      //System.out.println("Difference: " + diff);
-
-     return diff;
+     return badness;
    }
 }
 
@@ -144,12 +147,6 @@ class SortByDistance implements Comparator<Routes>{
 
 class SortByStart implements Comparator<Routes>{
   public int compare(Routes a, Routes b){
-    if(a.getEarliest() == b.getEarliest()) {
-      return 0;
-    } else if(a.getEarliest() > b.getEarliest()){
-      return 1;
-    } else {
-      return -1;
-    }
+    return a.getEarliest() - b.getEarliest();
   }
 }
