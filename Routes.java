@@ -34,7 +34,7 @@ public class Routes {
     }
 
     public Intersection getFinishPos() {
-        return rides.get(0).getFinishPos();
+        return rides.get(rides.size()-1).getFinishPos();
     }
 
 
@@ -47,10 +47,13 @@ public class Routes {
    public int getPoints(int startTime){
        int points = 0;
        int currentTime = startTime;
-       Intersection currentPos = rides.get(0).getStartPos();
+       Intersection currentPos = new Intersection(0,0);
 
        for (Ride currentRide: rides) {
          currentTime += Intersection.getDistance(currentPos, currentRide.getStartPos());
+         if (currentTime < currentRide.getEarliest()) {
+           currentTime = currentRide.getEarliest();
+         }
          points += currentRide.getPoints(currentTime);
          currentTime += currentRide.getDistance();
          currentPos = currentRide.getFinishPos();
@@ -62,7 +65,14 @@ public class Routes {
    * @returns the Distance of a route
    */
    public int getDistance() {
-     return distance;
+     int currentDistance = 0;
+     Intersection currentPos = new Intersection(0,0);
+     for (Ride currentRide: rides) {
+       currentDistance += Intersection.getDistance(currentPos, currentRide.getStartPos());
+       currentDistance += Intersection.getDistance(currentRide.getStartPos(), currentRide.getFinishPos());
+       currentPos = currentRide.getFinishPos();
+     }
+     return currentDistance;
    }
    /**
    * Returns the RideIDs of this routes
@@ -88,9 +98,10 @@ public class Routes {
          this.addRide(currentRide);
        }
        return true;
+     } else {
+       System.out.println("joinRoutes() Failed Second Routes is too early");
+       return false;
      }
-     System.out.println("joinRoutes() Failed Second Routes is too early");
-     return false;
    }
 
    /**

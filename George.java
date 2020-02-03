@@ -16,11 +16,9 @@ class George{
     try {
       //rides = Parse.parseRidesFromFile("a_example.in");
       //rides = Parse.parseRidesFromFile("b_should_be_easy.in");
-      //rides = Parse.parseRidesFromFile("c_no_hurry.in");
-      rides = Parse.parseRidesFromFile("d_metropolis.in");
-      //rides = Parse.parseRidesFromFile("a_example.in");
-      //rides = Parse.parseRidesFromFile("a_example.in");
-      //rides = Parse.parseRidesFromFile("a_example.in");
+      rides = Parse.parseRidesFromFile("c_no_hurry.in");
+      //rides = Parse.parseRidesFromFile("d_metropolis.in");
+      //rides = Parse.parseRidesFromFile("e_high_bonus.in");
 
     } catch (Exception e) {
       System.out.println("File not found");
@@ -55,37 +53,49 @@ class George{
     // Join route together
     // Stores the smallestDifference between routes.
     int smallestDiff = 999999999;
+    int secondSmallestDiff = 999999999;
     // The difference that we would allow a joining.
     int acceptableDiff = 0;
 
     while(solution.size() > Ride.getNumberOfCars() ) {
-
-
       System.out.println("A Current Size: " + solution.size() +
       " Number of Cars: " + Ride.getNumberOfCars() +
       " acceptableDiff: " + acceptableDiff +
       " smallestDiff: " + smallestDiff);
+      smallestDiff = 999999999;
+      secondSmallestDiff = 999999999;
       for(int i = 0;i < solution.size(); i++){
-        //System.out.println("i: " + i);
+        //System.out.println(i);
         for(int j = i+1; j < solution.size(); j++) {
           int currentDiff = Routes.spaceTimeDiff(solution.get(i), solution.get(j));
           if (currentDiff < smallestDiff) {
             smallestDiff = currentDiff;
           }
-          if (acceptableDiff >= currentDiff) {
-            // System.out.print("joining\n");
-            solution.get(i).joinRoutes(solution.get(j));
-            solution.remove(j);
+          if (currentDiff > smallestDiff && currentDiff < secondSmallestDiff){
+            secondSmallestDiff = currentDiff;
+          }
+
+          if (acceptableDiff >= currentDiff && solution.size() > Ride.getNumberOfCars() ) {
+            //System.out.print("joining\n");
+            if (solution.get(i).joinRoutes(solution.get(j))); {
+              solution.remove(j);
+            }
           }
         }
       }
-      acceptableDiff += smallestDiff/5;
+      //Collections.sort(solution, new SortByStart());
+      acceptableDiff = smallestDiff ;
     }
     // loop untill X number remains
 
     //// Output Parsing
-    System.out.println("points: " + solution.get(0).getPoints(0));
+
     Routes[] finalSolution = solution.toArray(new Routes[solution.size()]);
+    int points = 0;
+    for (Routes input: finalSolution) {
+      points += input.getPoints(0);
+    }
+    System.out.println("points: " + points);
     try{
       Parse.parseRoutesToFile(finalSolution, "GeorgeOut.out");
     } catch(IOException e) {
