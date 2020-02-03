@@ -2,17 +2,29 @@ import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.util.Comparator;
 
+/**
+* Used to model many rides together as one object
+* @version 1
+* @author Smokin Hash
+*/
+
 public class Routes {
   private Intersection startPos;
   private Intersection finishPos;
   private ArrayList<Ride> rides;
   private int distance;
 
-
+/**
+* Constuctor takes no args
+*/
   Routes() {
     rides = new ArrayList<Ride>();
   }
-
+/**
+* Used to add a ride to the end of the Route
+* Distance is updated at this points
+* @param input The ride to be added
+*/
   public void addRide(Ride input) {
     rides.add(input);
 
@@ -94,6 +106,10 @@ public class Routes {
      return rides.size();
    }
 
+   /**
+   * Places the input route onto the end of this route
+   * @param input the route to append to this routes
+   */
    public boolean joinRoutes(Routes input) {
      if (this.getEarliest() + this.getDistance() < input.getLatest()){
        for (Ride currentRide: input.getRides()) {
@@ -107,7 +123,8 @@ public class Routes {
    }
 
    /**
-   *
+   * @param a Starting Routes
+   * @param b Ending Routes
    * @return The Distance from the end of route a to the beginning of route break;
    *   which includes the time to get between the two.
    */
