@@ -66,7 +66,7 @@ public class Routes {
    */
    public int getDistance() {
      int currentDistance = 0;
-     Intersection currentPos = new Intersection(0,0);
+     Intersection currentPos = rides.get(0).getStartPos();
      for (Ride currentRide: rides) {
        currentDistance += Intersection.getDistance(currentPos, currentRide.getStartPos());
        currentDistance += Intersection.getDistance(currentRide.getStartPos(), currentRide.getFinishPos());
@@ -111,10 +111,10 @@ public class Routes {
    */
    public static int spaceTimeDiff(Routes a, Routes b) {
      int diff = Intersection.getDistance(a.getFinishPos(), b.getStartPos());
-     diff += b.getEarliest() - a.getLatest();
+     diff += b.getEarliest() - a.getEarliest() + a.getDistance();
      // Check to see if a ends after the b starts
-     if (a.getLatest() > b.getEarliest()) {
-       diff += 900000;
+     if (a.getEarliest() + a.getDistance() > b.getLatest()) {
+       diff += 9000;
      }
      //System.out.println("Difference: " + diff);
 
