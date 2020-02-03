@@ -15,6 +15,15 @@ public class Routes {
 
   public void addRide(Ride input) {
     rides.add(input);
+
+    int currentDistance = 0;
+    Intersection currentPos = rides.get(0).getStartPos();
+    for (Ride currentRide: rides) {
+      currentDistance += Intersection.getDistance(currentPos, currentRide.getStartPos());
+      currentDistance += Intersection.getDistance(currentRide.getStartPos(), currentRide.getFinishPos());
+      currentPos = currentRide.getFinishPos();
+    }
+    this.distance = currentDistance;
   }
 
   public int getEarliest() {
@@ -65,14 +74,7 @@ public class Routes {
    * @returns the Distance of a route
    */
    public int getDistance() {
-     int currentDistance = 0;
-     Intersection currentPos = rides.get(0).getStartPos();
-     for (Ride currentRide: rides) {
-       currentDistance += Intersection.getDistance(currentPos, currentRide.getStartPos());
-       currentDistance += Intersection.getDistance(currentRide.getStartPos(), currentRide.getFinishPos());
-       currentPos = currentRide.getFinishPos();
-     }
-     return currentDistance;
+     return this.distance;
    }
    /**
    * Returns the RideIDs of this routes
@@ -114,7 +116,7 @@ public class Routes {
      diff += b.getEarliest() - a.getEarliest() + a.getDistance();
      // Check to see if a ends after the b starts
      if (a.getEarliest() + a.getDistance() > b.getLatest()) {
-       diff += 9000;
+       diff += 900000;
      }
      //System.out.println("Difference: " + diff);
 
