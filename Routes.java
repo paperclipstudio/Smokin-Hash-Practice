@@ -42,6 +42,17 @@ public class Routes {
         return rides.get(0).getEarliest();
     }
 
+    /**
+    * Gives the Ealiest that a route could finish
+    * such that the earliest that a route could finishHorizontal
+    * @return Earliest + totalDistance + time to get to startPos
+    */
+    public int getBestCaseLatest() {
+      return getEarliest()
+        + getDistance() 
+        + Intersection.getDistance(new Intersection(0,0), getStartPos());
+    }
+
     public int getLatest() {
         return rides.get(rides.size() - 1).getLatest();
     }
@@ -130,9 +141,9 @@ public class Routes {
    */
    public static int spaceTimeDiff(Routes a, Routes b) {
      int diff = Intersection.getDistance(a.getFinishPos(), b.getStartPos());
-     diff += b.getEarliest() - a.getEarliest() + a.getDistance();
+     diff += b.getEarliest() - a.getBestCaseLatest();
      // Check to see if a ends after the b starts
-     if (a.getEarliest() + a.getDistance() > b.getLatest()) {
+     if (a.getBestCaseLatest() > b.getEarliest()) {
        diff += 900000;
      }
      //System.out.println("Difference: " + diff);
@@ -141,7 +152,12 @@ public class Routes {
    }
 }
 
-
+class SortByDistance implements Comparator<Routes>{
+  public int compare(Routes a, Routes b){
+    return a.getDistance() - b.getDistance();
+    //return b.getDistance() - a.getDistance();
+  }
+}
 
 class SortByStart implements Comparator<Routes>{
   public int compare(Routes a, Routes b){

@@ -1,7 +1,13 @@
+/**
+* @author Smokin'Hash
+* Class that models a position on the grid based steets
+*
+*/
+
 public class Intersection {
     private int horizontalStreet;
     private int verticalStreet;
-
+    
     public Intersection(int horizontalStreet, int verticalStreet) {
         this.setHorizontalStreet(horizontalStreet);
         this.setVerticalStreet(verticalStreet);

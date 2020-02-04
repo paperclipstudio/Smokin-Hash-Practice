@@ -40,7 +40,8 @@ class George{
     }
 
     // Sort Routes by starting time.
-    Collections.sort(solution, new SortByStart());
+    //Collections.sort(solution, new SortByStart());
+    Collections.sort(solution, new SortByDistance());
 /*
     for (int i=0; i<solution.size(); i++) {
       System.out.printf("task: %3d Time: %4d From: [%3d,%3d] To: [%3d,%3d]\n",
@@ -73,7 +74,7 @@ class George{
       secondSmallestDiff = LARGE_NUMBER;
       // for each (i) and all later routes (j)
       for(int i = 0;i < solution.size(); i++){
-        for(int j = i+1; j < solution.size(); j++) {
+        for(int j = 0; j < solution.size(); j++) {
           // Find the difference between route i and route j
           int currentDiff = Routes.spaceTimeDiff(solution.get(i), solution.get(j));
           if (currentDiff < smallestDiff) {
@@ -81,12 +82,13 @@ class George{
           } else if(currentDiff > smallestDiff && currentDiff < secondSmallestDiff){
             secondSmallestDiff = currentDiff;
           }
-          // If difference is accptable and we still have too many rides.
-          if (currentDiff <= acceptableDiff &&
+          // If difference is accptable and we still have too many routes.
+          if (currentDiff <= acceptableDiff*2 &&
           solution.size() > Ride.getNumberOfCars() ) {
             // if routes are correctly joined then remove second route.
             if (solution.get(i).joinRoutes(solution.get(j))) {
               solution.remove(j);
+              break;
             }
           }
         }
