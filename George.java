@@ -15,6 +15,7 @@ class George{
     ////
     //// Parsing File
     ////
+    ArrayList<Ride> rides = new ArrayList<Ride>();
     try {
       //rides = Parse.parseRidesFromFile("a_example.in");
       //rides = Parse.parseRidesFromFile("b_should_be_easy.in");
@@ -40,8 +41,8 @@ class George{
     }
 
     // Sort Routes by starting time.
-    //Collections.sort(solution, new SortByStart());
-    Collections.sort(solution, new SortByDistance());
+    Collections.sort(solution, new SortByStart());
+    //Collections.sort(solution, new SortByDistance());
 /*
     for (int i=0; i<solution.size(); i++) {
       System.out.printf("task: %3d Time: %4d From: [%3d,%3d] To: [%3d,%3d]\n",
