@@ -15,7 +15,6 @@ class George{
     ////
     //// Parsing File
     ////
-    ArrayList<Ride> rides = new ArrayList<Ride>();
     try {
       //rides = Parse.parseRidesFromFile("a_example.in");
       //rides = Parse.parseRidesFromFile("b_should_be_easy.in");

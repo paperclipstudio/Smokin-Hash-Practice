@@ -1,31 +1,22 @@
 import java.io.File; // Import the File class
-
 import java.util.Scanner; // Import the Scanner class to read text files
-
 import java.io.FileNotFoundException;
-
 import java.util.ArrayList;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
 /**
-
  * Reads a .in file and creates a Arraylist of Rides. It then returns this
-
  * Arraylist.
  * @author Yan Yan Ji, Gus
  *
  * @version 2
  *
- * @
-
+ *
  * @param filename Input filename, if none is given then defaults to Rides.in
-
  * @return ArrayList<Ride> List of rides read from the file.
  *
-
  */
 
 public class Parse {

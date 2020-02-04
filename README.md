@@ -7,7 +7,7 @@ Route :
   Sort
     Distance
     Start time
-### Part 3 - Meat
+### Part 3
   While (Rides left):
     Give any free cars nearest ride (time + distance)
     Remove ride from ride list
@@ -30,7 +30,7 @@ Route :
 
 
 Write a points calulator that takes in Rides and
-says how many points they create. 
+says how many points they create.
 
 Write a Rides packer that takes in rides and gives them
 to cars

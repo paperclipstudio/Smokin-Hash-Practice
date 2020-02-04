@@ -83,11 +83,19 @@ public class Ride {
     public static void setRideBonusPoints(int bonus) {
       bonusPerRide = bonus;
     }
-
+    /**
+    * Sets the static valiable numberOfCars to refect the number of cars we
+    * have access d_metropolis
+    * @param cars the number of cars we have access to.
+    *
+    */
     public static void setNumberOfCars(int cars) {
       numberOfCars = cars;
     }
-
+    /**
+    * Used to call the number of cars we have access to
+    * @return numberOfCars
+    */
     public static int getNumberOfCars() {
       return numberOfCars;
     }
