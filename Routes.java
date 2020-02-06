@@ -13,9 +13,16 @@ public class Routes {
     rides = new ArrayList<Ride>();
   }
 
+  public Routes copy() {
+    Routes copy = new Routes();
+    for(int i = 0; i < this.rides.size();i++){
+      copy.addRide(this.rides.get(i));
+    }
+    return copy;
+  }
+
   public void addRide(Ride input) {
     rides.add(input);
-
     int currentDistance = 0;
     Intersection currentPos = rides.get(0).getStartPos();
     for (Ride currentRide: rides) {
@@ -25,6 +32,7 @@ public class Routes {
     }
     this.distance = currentDistance;
   }
+
 
   public int getEarliest() {
         return rides.get(0).getEarliest();
@@ -81,6 +89,12 @@ public class Routes {
        return points;
    }
 
+   public int getPointsPerTime(){
+     //System.out.println(this.getPoints(0)/(this.getBestCaseLatest() * 1.0));
+     return (int) Math.floor(10000.0 * (this.getPoints(0)/(this.getBestCaseLatest() * 1.0)));
+   }
+
+
    /**
    * @returns the Distance of a route
    */
@@ -117,6 +131,17 @@ public class Routes {
      }
    }
 
+   public static Routes joinRoutes(Routes inputA, Routes inputB) {
+     Routes result = new Routes();
+     for (Ride currentRide: inputA.getRides()) {
+       result.addRide(currentRide);
+     }
+     for (Ride currentRide: inputB.getRides()) {
+       result.addRide(currentRide);
+     }
+     return result;
+   }
+
    /**
    *
    * @return The Distance from the end of route a to the beginning of route break;
@@ -130,7 +155,7 @@ public class Routes {
      if(timeDiff >= 0) {
        badness += timeDiff;
      } else {
-     // Check to see if a ends after the b starts     
+     // Check to see if a ends after the b starts
        badness += 9000000;
      }
      //System.out.println("Difference: " + diff);

@@ -58,7 +58,7 @@ class George{
     // Finds out the differents between the ending of one route and the starting
     // of another, if this difference is less than the acceptableDiff then they
     // get joinned together
-    final int LARGE_NUMBER = 999999999;
+    final int LARGE_NUMBER = 999999;
     // Stores the smallestDifference between routes.
     int smallestDiff = LARGE_NUMBER;
     int secondSmallestDiff = LARGE_NUMBER;
@@ -68,15 +68,15 @@ class George{
     while(solution.size() > Ride.getNumberOfCars() ) {
       System.out.println("A Current Size: " + solution.size() +
       " Number of Cars: " + Ride.getNumberOfCars() +
-      " acceptableDiff: " + acceptableDiff +
-      " smallestDiff: " + smallestDiff);
+      " acceptDiff: " + acceptableDiff +
+      " smallDiff: " + smallestDiff);
 
       smallestDiff = LARGE_NUMBER;
       secondSmallestDiff = LARGE_NUMBER;
       // for each (i) and all later routes (j)
       for(int i = 0;i < solution.size(); i++){
         for(int j = 0; j < solution.size(); j++) {
-          
+
         }
       }
       //Collections.sort(solution, new SortByStart());

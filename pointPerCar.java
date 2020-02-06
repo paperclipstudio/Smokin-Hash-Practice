@@ -80,8 +80,8 @@ class pointPerCar{
     int acceptableDiff = -100;
 
     while(solution.size() > Ride.getNumberOfCars() ) {
-      System.out.printf("A Current Size: %4d  Number of Cars:  %4d " +
-      "accept Diff: %4d  pointsPerCar: %4.4f\n",
+      System.out.printf("Size: %4d  # of Cars:  %3d " +
+      "Diff: %4d  pointsPerCar: %4.4f\n",
       solution.size(),
       Ride.getNumberOfCars(),
       acceptableDiff,
@@ -89,31 +89,36 @@ class pointPerCar{
 
       smallestDiff = LARGE_NUMBER - 2;
       secondSmallestDiff = LARGE_NUMBER;
+
+      int maxPoints = 0;
+      int[] bestIJ = {0, 1};
       // for each (i) and all later routes (j)
-      for(int i = 0;i < solution.size(); i++){
+      for(int i = 0;i < 350; i++){
         for(int j = 0; j < solution.size(); j++) {
           if (i != j) {
             // Find the difference between route i and route j
-            int currentDiff = Routes.spaceTimeDiff(solution.get(i), solution.get(j));
-            if (currentDiff < smallestDiff) {
-              smallestDiff = currentDiff;
-            } else if(currentDiff > smallestDiff && currentDiff < secondSmallestDiff){
-              secondSmallestDiff = currentDiff;
-            }
-            // If difference is accptable and we still have too many routes.
-            if (currentDiff <= acceptableDiff &&
-            solution.size() > Ride.getNumberOfCars() ) {
-              // if routes are correctly joined then remove second route.
-              if (solution.get(i).joinRoutes(solution.get(j))) {
-                solution.remove(j);
-                break;
-              }
+
+            Routes routeIJ = Routes.joinRoutes(solution.get(i), solution.get(j));
+            int pointsI = solution.get(i).getPointsPerTime();
+            int pointsJ = solution.get(j).getPointsPerTime();
+            int pointsIJ = routeIJ.getPointsPerTime();
+            int pointGain = pointsIJ - (pointsI + pointsJ)/2;
+
+            //if (pointsI > 0){System.out.println(pointGain);};
+            if (pointGain > maxPoints) {
+              maxPoints = pointGain;
+              bestIJ[0] = i;
+              bestIJ[1] = j;
+              //System.out.printf("New best: i %3d, j %3d, pointsGain: %5d\n",
+              //i, j, pointGain);
             }
           }
         }
       }
+      System.out.printf("joining %3d with %3d\n", bestIJ[0], bestIJ[1]);
+      solution.get(bestIJ[0]).joinRoutes(solution.get(bestIJ[1]));
+      solution.remove(bestIJ[1]);
       //Collections.sort(solution, new SortByStart());
-      acceptableDiff = secondSmallestDiff;
     }
     // loop untill X number remains
 
